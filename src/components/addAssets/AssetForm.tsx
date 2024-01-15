@@ -14,19 +14,30 @@ export function StockForm() {
 	const [failDialog, setFailDialog] = useState(<></>);
 
 	const getStockFormData = () => {
-		const assetSymbol = (document.getElementById("asset-symbol") as HTMLInputElement).value;
+		const assetSymbol = (
+      document.getElementById("asset-symbol") as HTMLInputElement
+		).value;
 		// TODO actually add the stock to the redux state
 		// TODO maybe send a request to https://ca.finance.yahoo.com/quote/TICKER to check if stock exists? But this may not be necessary.
 		if (assetSymbol) {
 			setFailDialog(<></>);
-			setSuccessDialog(<AssetFormSuccessDialog><strong>{assetSymbol}</strong> added, although it may not exist on YFinance</AssetFormSuccessDialog>);
+			setSuccessDialog(
+				<AssetFormSuccessDialog>
+					<strong>{assetSymbol}</strong> added, although it may not exist on
+          YFinance
+				</AssetFormSuccessDialog>
+			);
 
 			setTimeout(() => {
 				setSuccessDialog(<></>);
 			}, DIALOG_SHOW_TIME_MS);
 		} else {
 			setSuccessDialog(<></>);
-			setFailDialog(<AssetFormFailDialog>Could not add asset. Make sure it is available on Yahoo Finance.</AssetFormFailDialog>);
+			setFailDialog(
+				<AssetFormFailDialog>
+          Could not add asset. Make sure it is available on Yahoo Finance.
+				</AssetFormFailDialog>
+			);
 
 			setTimeout(() => {
 				setFailDialog(<></>);
@@ -37,12 +48,15 @@ export function StockForm() {
 	return (
 		<AssetFormDiv>
 			<SideBarHeader>Ticker(Yahoo Finance)</SideBarHeader>
-			<AssetFormInputBox autoComplete="off"
+			<AssetFormInputBox
+				autoComplete="off"
 				type="text"
 				placeholder="Asset Symbol"
 				id="asset-symbol"
 			></AssetFormInputBox>
-			<AssetFormSubmitButton onClick={getStockFormData}>SUBMIT</AssetFormSubmitButton>
+			<AssetFormSubmitButton onClick={getStockFormData}>
+        SUBMIT
+			</AssetFormSubmitButton>
 			{successDialog}
 			{failDialog}
 		</AssetFormDiv>
