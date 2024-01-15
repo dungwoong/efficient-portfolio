@@ -9,3 +9,13 @@ export const DEEP_SKY_BLUE = "#3CA1D5";
 export const APRICOT = "#E9A367";
 
 export const CERISE_RED = "#DD4854";
+
+export const VISUALIZATION_LIGHTER_GRAY = "#31363f";
+
+export const VISUALIZATION_GRAY = "#282c34";
+
+export const SIDEBAR_DARK_GRAY = "#1b1d23";
+
+export const SIDEBAR_INPUT_DARK_GRAY = "#121417";
+
+export const SIDEBAR_TEXT_COLOR = "#DDDDDD";
