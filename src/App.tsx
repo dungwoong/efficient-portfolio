@@ -1,13 +1,11 @@
 import React from "react";
 import "./App.css";
-import { StockForm } from "./components/addAssets/AssetForm";
+import SideBar from "./components/Sidebar";
 
 function App() {
 	return (
 		<div className="App">
-			<div className="SideBar">
-				<StockForm></StockForm>
-			</div>
+			<SideBar></SideBar>
 			<div className="Visualizations"></div>
 		</div>
 	);
