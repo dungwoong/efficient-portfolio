@@ -16,6 +16,7 @@ export const AssetFormInputBox = styled.input`
     color: ${SIDEBAR_TEXT_COLOR};
     border-radius: 4px;
     padding: 10px 5px;
+    font-family: inherit;
 
     &:focus {
         outline: none;
@@ -24,12 +25,13 @@ export const AssetFormInputBox = styled.input`
 
 export const AssetFormSubmitButton = styled.button`
     border: none;
-    background-color: inherit;
+    background-color: ${SIDEBAR_DARK_GRAY};
     color: ${SIDEBAR_TEXT_COLOR};
     border: 1px solid ${SIDEBAR_TEXT_COLOR};
     border-radius: 5px;
-    margin: 5px 0 0 0;
-    padding: 5px 10px;
+    margin: 15px 0 0 0;
+    padding: 10px 10px;
+    font-family: inherit;
 
     &:hover {
         background-color: ${VISUALIZATION_GRAY};

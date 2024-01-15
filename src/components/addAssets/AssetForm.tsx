@@ -7,6 +7,7 @@ import {
 	AssetFormSuccessDialog,
 } from "./AssetFormStyles";
 import { DIALOG_SHOW_TIME_MS } from "../../constants/assetFormConstants";
+import { SideBarHeader } from "../Sidebar";
 
 export function StockForm() {
 	const [successDialog, setSuccessDialog] = useState(<></>);
@@ -35,12 +36,13 @@ export function StockForm() {
 
 	return (
 		<AssetFormDiv>
+			<SideBarHeader>Ticker(Yahoo Finance)</SideBarHeader>
 			<AssetFormInputBox autoComplete="off"
 				type="text"
 				placeholder="Asset Symbol"
 				id="asset-symbol"
 			></AssetFormInputBox>
-			<AssetFormSubmitButton onClick={getStockFormData}>Submit</AssetFormSubmitButton>
+			<AssetFormSubmitButton onClick={getStockFormData}>SUBMIT</AssetFormSubmitButton>
 			{successDialog}
 			{failDialog}
 		</AssetFormDiv>
