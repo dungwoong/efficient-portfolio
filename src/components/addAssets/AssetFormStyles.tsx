@@ -42,6 +42,7 @@ export const AssetFormSubmitButton = styled.button`
 
 export const AssetFormSuccessDialog = styled.div`
     background-color: ${OCEAN_GREEN};
+    color: ${SIDEBAR_TEXT_COLOR};
     color: white;
     border: none;
     border-radius: 0;
@@ -50,6 +51,7 @@ export const AssetFormSuccessDialog = styled.div`
 
 export const AssetFormFailDialog = styled.div`
     background-color: ${CERISE_RED};
+    color: ${SIDEBAR_TEXT_COLOR};
     color: white;
     border: none;
     border-radius: 0;

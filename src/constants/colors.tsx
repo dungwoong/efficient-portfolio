@@ -1,3 +1,4 @@
+// A random palette I found online
 export const PASTEL_YELLOW = "#E2E7B9";
 
 export const OCEAN_GREEN = "#39B1A1";
@@ -10,6 +11,7 @@ export const APRICOT = "#E9A367";
 
 export const CERISE_RED = "#DD4854";
 
+// The good ol' grayscale palette
 export const VISUALIZATION_LIGHTER_GRAY = "#31363f";
 
 export const VISUALIZATION_GRAY = "#282c34";
