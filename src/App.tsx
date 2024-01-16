@@ -1,12 +1,13 @@
 import React from "react";
 import "./App.css";
-import SideBar from "./components/Sidebar";
+import { AddAssetSideBar, AddConstraintSideBar } from "./components/Sidebar";
 
 function App() {
 	return (
 		<div className="App">
-			<SideBar></SideBar>
+			<AddAssetSideBar></AddAssetSideBar>
 			<div className="Visualizations"></div>
+			<AddConstraintSideBar></AddConstraintSideBar>
 		</div>
 	);
 }

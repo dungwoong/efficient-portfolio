@@ -8,6 +8,33 @@ export const AssetFormDiv = styled.div`
     display: flex;
     flex-direction: column;
     padding: 20px 5px 10px 5px;
+
+    &.horizontal {
+        flex-direction: row;
+    }
+`;
+
+export const AssetPickerRadioButton = styled.button`
+    background-color: ${SIDEBAR_INPUT_DARK_GRAY};
+    color: ${SIDEBAR_TEXT_COLOR};
+    border: none;
+    flex: 1;
+    padding: 10px 0;
+    font-family: inherit;
+
+    &.selected {
+        background-color: ${VISUALIZATION_LIGHTER_GRAY};
+    }
+
+    &.right {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    &.left {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
 `;
 
 export const AssetFormInputBox = styled.input`

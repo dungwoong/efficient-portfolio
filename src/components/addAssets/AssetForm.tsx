@@ -5,9 +5,42 @@ import {
 	AssetFormInputBox,
 	AssetFormSubmitButton,
 	AssetFormSuccessDialog,
+	AssetPickerRadioButton,
 } from "./AssetFormStyles";
 import { DIALOG_SHOW_TIME_MS } from "../../constants/assetFormConstants";
 import { SideBarHeader } from "../Sidebar";
+
+export function AssetForm() {
+	const [currentForm, setCurrentForm] = useState("stock");
+
+	return (
+		<AssetFormDiv>
+			<AssetFormDiv className="horizontal">
+				<AssetPickerRadioButton
+					className={"left" + (currentForm === "stock" ? " selected" : "")}
+					onClick={() => setCurrentForm("stock")}
+				>
+          Stock
+				</AssetPickerRadioButton>
+				<AssetPickerRadioButton
+					className={currentForm === "cash" ? "selected" : ""}
+					onClick={() => setCurrentForm("cash")}
+				>
+          Cash
+				</AssetPickerRadioButton>
+				<AssetPickerRadioButton
+					className={"right" + (currentForm === "category" ? " selected" : "")}
+					onClick={() => setCurrentForm("category")}
+				>
+          Category
+				</AssetPickerRadioButton>
+			</AssetFormDiv>
+			{currentForm === "stock" && <StockForm></StockForm>}
+			{currentForm === "cash" && <CashAssetForm></CashAssetForm>}
+			{currentForm === "category" && <CategoryForm></CategoryForm>}
+		</AssetFormDiv>
+	);
+}
 
 export function StockForm() {
 	const [successDialog, setSuccessDialog] = useState(<></>);
@@ -55,7 +88,7 @@ export function StockForm() {
 				id="asset-symbol"
 			></AssetFormInputBox>
 			<AssetFormSubmitButton onClick={getStockFormData}>
-        SUBMIT
+        SUBMIT STOCK ASSET
 			</AssetFormSubmitButton>
 			{successDialog}
 			{failDialog}
@@ -73,19 +106,23 @@ export function CashAssetForm() {
 		).value;
 
 		const assetRate = (
-			document.getElementById("asset-rate-cash") as HTMLInputElement
+      document.getElementById("asset-rate-cash") as HTMLInputElement
 		).value;
 		// TODO actually add the stock to the redux state
-		// TODO maybe send a request to https://ca.finance.yahoo.com/quote/TICKER to check if stock exists? But this may not be necessary.
+		// TODO check that the symbol doesn't exist already in the redux state. We need to refactor the success/failure messages
 		if (assetSymbol && assetRate) {
 			setFailDialog(<></>);
 
 			if (isNaN(parseFloat(assetRate)) || parseFloat(assetRate) > 100) {
-				setFailDialog(<AssetFormFailDialog>Please input a valid number as a rate.</AssetFormFailDialog>);
+				setFailDialog(
+					<AssetFormFailDialog>
+            Please input a valid number as a rate.
+					</AssetFormFailDialog>
+				);
 			} else {
 				setSuccessDialog(
 					<AssetFormSuccessDialog>
-						<strong>{assetSymbol}</strong> added with rate {assetRate}
+						<strong>{assetSymbol}</strong> added with {assetRate}% annual interest rate
 					</AssetFormSuccessDialog>
 				);
 			}
@@ -110,7 +147,7 @@ export function CashAssetForm() {
 
 	return (
 		<AssetFormDiv>
-			<SideBarHeader>Ticker(Yahoo Finance)</SideBarHeader>
+			<SideBarHeader>Asset Symbol</SideBarHeader>
 			<AssetFormInputBox
 				autoComplete="off"
 				type="text"
@@ -126,7 +163,58 @@ export function CashAssetForm() {
 				id="asset-rate-cash"
 			></AssetFormInputBox>
 			<AssetFormSubmitButton onClick={getCashAssetFormData}>
-        SUBMIT
+        SUBMIT CASH ASSET
+			</AssetFormSubmitButton>
+			{successDialog}
+			{failDialog}
+		</AssetFormDiv>
+	);
+}
+
+export function CategoryForm() {
+	const [successDialog, setSuccessDialog] = useState(<></>);
+	const [failDialog, setFailDialog] = useState(<></>);
+
+	const getCategoryData = () => {
+		const categorySymbol = (
+      document.getElementById("asset-symbol-category") as HTMLInputElement
+		).value;
+		if (categorySymbol) {
+			setFailDialog(<></>);
+			setSuccessDialog(
+				<AssetFormSuccessDialog>
+					<strong>{categorySymbol}</strong> category added
+				</AssetFormSuccessDialog>
+			);
+
+			setTimeout(() => {
+				setSuccessDialog(<></>);
+			}, DIALOG_SHOW_TIME_MS);
+		} else {
+			setSuccessDialog(<></>);
+			setFailDialog(
+				<AssetFormFailDialog>
+          Please fill out the form
+				</AssetFormFailDialog>
+			);
+
+			setTimeout(() => {
+				setFailDialog(<></>);
+			}, DIALOG_SHOW_TIME_MS);
+		}
+	};
+
+	return (
+		<AssetFormDiv>
+			<SideBarHeader>Category Name</SideBarHeader>
+			<AssetFormInputBox
+				autoComplete="off"
+				type="text"
+				placeholder="Category Name"
+				id="asset-symbol-category"
+			></AssetFormInputBox>
+			<AssetFormSubmitButton onClick={getCategoryData}>
+        SUBMIT CATEGORY
 			</AssetFormSubmitButton>
 			{successDialog}
 			{failDialog}

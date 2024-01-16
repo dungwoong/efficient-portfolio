@@ -2,7 +2,7 @@ import React from "react";
 import "../App.css";
 import styled from "styled-components";
 import { SIDEBAR_DARK_GRAY, SIDEBAR_TEXT_COLOR } from "../constants/colors";
-import { CashAssetForm, StockForm } from "./addAssets/AssetForm";
+import { AssetForm } from "./addAssets/AssetForm";
 
 const SideBarDiv = styled.div`
     background-color: ${SIDEBAR_DARK_GRAY};
@@ -17,11 +17,16 @@ export const SideBarHeader = styled.div`
 	color: ${SIDEBAR_TEXT_COLOR};
 `;
 
-export default function SideBar() {
+export function AddAssetSideBar() {
 	return (
-		<SideBarDiv className="sidebar">
-			<StockForm></StockForm>	
-			<CashAssetForm></CashAssetForm>
+		<SideBarDiv className="sidebar-asset">
+			<AssetForm></AssetForm>
 		</SideBarDiv>
+	);
+}
+
+export function AddConstraintSideBar() {
+	return (
+		<SideBarDiv className="sidebar-constraint"></SideBarDiv>
 	);
 }
