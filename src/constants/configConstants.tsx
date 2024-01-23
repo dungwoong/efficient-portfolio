@@ -1,0 +1,1 @@
+export const STOCK_ASSET_TYPE = "stock";

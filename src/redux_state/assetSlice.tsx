@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type assetInfo = {
 	name: string;
 	type: string;
-	info: stockInfo | cashInfo;
+	info?: cashInfo;
 	categories: string[];
 }
 
@@ -12,24 +12,30 @@ export type userAssetInfo = {
 	categories: string[];
 }
 
-type stockInfo = {
-	ticker: string;
-}
-
 type cashInfo = {
 	symbol: string;
 	interestRate: string;
 }
 
 const initialState: userAssetInfo = {
-	assets: [],
+	assets: [{
+		name: "VSP.TO",
+		type: "stock",
+		categories: [],
+	},],
 	categories: [],
 };
 
 export const assetSlice = createSlice({
-	name: "assets",
+	name: "assetList",
 	initialState: initialState,
-	reducers: {},
+	reducers: {
+		addAsset: (state, action: PayloadAction<assetInfo>) => {
+			state.assets.push(action.payload);
+		}
+	},
 });
+
+export const { addAsset } = assetSlice.actions;
 
 export default assetSlice.reducer;

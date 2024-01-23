@@ -1,8 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import assetReducer from "./assetSlice";
 
-export default configureStore({
+export const store = configureStore({
 	reducer: {
-		asset: assetReducer,
+		assetList: assetReducer,
 	},
 });
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

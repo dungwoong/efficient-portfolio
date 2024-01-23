@@ -3,9 +3,11 @@ import "../App.css";
 import styled from "styled-components";
 import { SIDEBAR_DARK_GRAY, SIDEBAR_TEXT_COLOR } from "../constants/colors";
 import { AssetForm } from "./addAssets/AssetForm";
+import { AssetList } from "./assetList/assetList";
 
 const SideBarDiv = styled.div`
     background-color: ${SIDEBAR_DARK_GRAY};
+	overflow-y: scroll;
 `;
 
 export const SideBarHeader = styled.div`
@@ -21,6 +23,7 @@ export function AddAssetSideBar() {
 	return (
 		<SideBarDiv className="sidebar-asset">
 			<AssetForm></AssetForm>
+			<AssetList></AssetList>
 		</SideBarDiv>
 	);
 }
