@@ -21,9 +21,9 @@ const initialState: userAssetInfo = {
 	assets: [{
 		name: "VSP.TO",
 		type: "stock",
-		categories: [],
+		categories: ["test1", "test2", "category 3", "category 4"],
 	},],
-	categories: [],
+	categories: ["test1", "test2", "category 3", "category 4"],
 };
 
 export const assetSlice = createSlice({
