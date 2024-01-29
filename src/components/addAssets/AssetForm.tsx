@@ -9,6 +9,9 @@ import {
 } from "./AssetFormStyles";
 import { DIALOG_SHOW_TIME_MS } from "../../constants/assetFormConstants";
 import { SideBarHeader } from "../Sidebar";
+import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
+import { addAsset } from "../../reducers/assetSlice";
+import { isAssetValid } from "./isAssetValid";
 
 export function AssetForm() {
 	const [currentForm, setCurrentForm] = useState("stock");
@@ -45,21 +48,34 @@ export function AssetForm() {
 export function StockForm() {
 	const [successDialog, setSuccessDialog] = useState(<></>);
 	const [failDialog, setFailDialog] = useState(<></>);
+	const existingAssets = useAppSelector((state) => state.assetList.assets);
+	const existingAssetNames = existingAssets.map((x) => x.name);
+	const dispatch = useAppDispatch();
 
 	const getStockFormData = () => {
-		const assetSymbol = (
-      document.getElementById("asset-symbol") as HTMLInputElement
-		).value;
+		const assetSymbol = document.getElementById(
+			"asset-symbol"
+		) as HTMLInputElement;
 		// TODO actually add the stock to the redux state
 		// TODO maybe send a request to https://ca.finance.yahoo.com/quote/TICKER to check if stock exists? But this may not be necessary.
-		if (assetSymbol) {
+
+		if (isAssetValid(assetSymbol.value, existingAssetNames)) {
+			dispatch(
+				addAsset({
+					name: assetSymbol.value,
+					type: "stock",
+					categories: [],
+				})
+			);
+
 			setFailDialog(<></>);
 			setSuccessDialog(
 				<AssetFormSuccessDialog>
-					<strong>{assetSymbol}</strong> added, although it may not exist on
-          YFinance
+					<strong>{assetSymbol.value}</strong> added, although it may not exist
+          on YFinance
 				</AssetFormSuccessDialog>
 			);
+			assetSymbol.value = "";
 
 			setTimeout(() => {
 				setSuccessDialog(<></>);
@@ -68,7 +84,8 @@ export function StockForm() {
 			setSuccessDialog(<></>);
 			setFailDialog(
 				<AssetFormFailDialog>
-          Could not add asset. Make sure it is available on Yahoo Finance.
+          Could not add asset. Make sure it is available on Yahoo Finance and is
+          not a duplicat
 				</AssetFormFailDialog>
 			);
 
@@ -122,7 +139,8 @@ export function CashAssetForm() {
 			} else {
 				setSuccessDialog(
 					<AssetFormSuccessDialog>
-						<strong>{assetSymbol}</strong> added with {assetRate}% annual interest rate
+						<strong>{assetSymbol}</strong> added with {assetRate}% annual
+            interest rate
 					</AssetFormSuccessDialog>
 				);
 			}
@@ -193,9 +211,7 @@ export function CategoryForm() {
 		} else {
 			setSuccessDialog(<></>);
 			setFailDialog(
-				<AssetFormFailDialog>
-          Please fill out the form
-				</AssetFormFailDialog>
+				<AssetFormFailDialog>Please fill out the form</AssetFormFailDialog>
 			);
 
 			setTimeout(() => {
