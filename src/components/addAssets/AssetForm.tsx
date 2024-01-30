@@ -155,6 +155,9 @@ export function CashAssetForm() {
 				);
 			}
 
+			assetSymbol.value = "";
+			assetRate.value = "";
+
 			setTimeout(() => {
 				setSuccessDialog(<></>);
 				setFailDialog(<></>);
