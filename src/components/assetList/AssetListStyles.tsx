@@ -52,4 +52,8 @@ export const CategoryDiv = styled.div`
   padding: 5px 10px;
   margin: 5px;
 `;
-export const AssetListItemDiv = styled.div``;
+export const AssetListItemDiv = styled.div`
+  margin: 0;
+  padding: 10px 5px;
+  border: 2px solid ${VISUALIZATION_GRAY};
+`;

@@ -3,18 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type assetInfo = {
 	name: string;
 	type: string;
-	info?: cashInfo;
+	interestRate?: string;
 	categories: string[];
 }
 
 export type userAssetInfo = {
 	assets: assetInfo[];
 	categories: string[];
-}
-
-type cashInfo = {
-	symbol: string;
-	interestRate: string;
 }
 
 const initialState: userAssetInfo = {

@@ -85,7 +85,7 @@ export function StockForm() {
 			setFailDialog(
 				<AssetFormFailDialog>
           Could not add asset. Make sure it is available on Yahoo Finance and is
-          not a duplicat
+          not a duplicate
 				</AssetFormFailDialog>
 			);
 
@@ -116,30 +116,40 @@ export function StockForm() {
 export function CashAssetForm() {
 	const [successDialog, setSuccessDialog] = useState(<></>);
 	const [failDialog, setFailDialog] = useState(<></>);
+	const existingAssets = useAppSelector((state) => state.assetList.assets);
+	const existingAssetNames = existingAssets.map((x) => x.name);
+	const dispatch = useAppDispatch();
 
 	const getCashAssetFormData = () => {
 		const assetSymbol = (
-      document.getElementById("asset-symbol-cash") as HTMLInputElement
-		).value;
+      document.getElementById("asset-symbol-cash") as HTMLInputElement);
 
 		const assetRate = (
-      document.getElementById("asset-rate-cash") as HTMLInputElement
-		).value;
+      document.getElementById("asset-rate-cash") as HTMLInputElement);
 		// TODO actually add the stock to the redux state
 		// TODO check that the symbol doesn't exist already in the redux state. We need to refactor the success/failure messages
-		if (assetSymbol && assetRate) {
+		if (isAssetValid(assetSymbol.value, existingAssetNames) && assetRate.value) {
 			setFailDialog(<></>);
 
-			if (isNaN(parseFloat(assetRate)) || parseFloat(assetRate) > 100) {
+			if (isNaN(parseFloat(assetRate.value)) || parseFloat(assetRate.value) > 100 || parseFloat(assetRate.value) < 0) {
 				setFailDialog(
 					<AssetFormFailDialog>
             Please input a valid number as a rate.
 					</AssetFormFailDialog>
 				);
 			} else {
+				dispatch(
+					addAsset({
+						name: assetSymbol.value,
+						type: "cash",
+						interestRate: assetRate.value,
+						categories: [],
+					})
+				);
+				
 				setSuccessDialog(
 					<AssetFormSuccessDialog>
-						<strong>{assetSymbol}</strong> added with {assetRate}% annual
+						<strong>{assetSymbol.value}</strong> added with {assetRate.value}% annual
             interest rate
 					</AssetFormSuccessDialog>
 				);
@@ -153,7 +163,7 @@ export function CashAssetForm() {
 			setSuccessDialog(<></>);
 			setFailDialog(
 				<AssetFormFailDialog>
-          Could not add asset. Make sure to fill out all fields.
+          Could not add asset. Make sure to fill out all fields and use a unique symbol.
 				</AssetFormFailDialog>
 			);
 

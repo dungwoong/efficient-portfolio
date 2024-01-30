@@ -12,6 +12,7 @@ import {
 
 type stockProps = {
 	name: string;
+	interestRate: string | undefined;
 	categories: string[];
   };
 
@@ -25,6 +26,7 @@ export function AssetList() {
 					<AssetListItem
 						key={asset.name}
 						name={asset.name}
+						interestRate={asset.interestRate}
 						categories={asset.categories}
 					></AssetListItem>
 				);
@@ -52,6 +54,7 @@ function AssetListItem(props: stockProps) {
 			{showDetails && (
 				<>
 					<hr></hr>
+					{props.interestRate && <>Rate: {props.interestRate}%(Annual)</>}
 					<AssetButtonsDiv>
 						<AssetButton>DELETE</AssetButton>
 						<AssetButton onClick={() => setShowCategories(!showCategories)}>
