@@ -9,13 +9,13 @@ import {
 	CategoryListDiv,
 	CategoryDiv,
 } from "./AssetListStyles";
-import { deleteAsset } from "../../reducers/assetSlice";
+import { addCategoryToAsset, deleteAsset, removeCategoryFromAsset } from "../../reducers/assetSlice";
 
 type stockProps = {
-	name: string;
-	interestRate: string | undefined;
-	categories: string[];
-  };
+  name: string;
+  interestRate: string | undefined;
+  categories: string[];
+};
 
 export function AssetList() {
 	const assets = useAppSelector((state) => state.assetList.assets);
@@ -60,7 +60,9 @@ function AssetListItem(props: stockProps) {
 					<hr></hr>
 					{props.interestRate && <>Rate: {props.interestRate}%(Annual)</>}
 					<AssetButtonsDiv>
-						<AssetButton onClick={() => dispatch(deleteAsset(props.name))}>DELETE</AssetButton>
+						<AssetButton onClick={() => dispatch(deleteAsset(props.name))}>
+              DELETE
+						</AssetButton>
 						<AssetButton onClick={() => setShowCategories(!showCategories)}>
               Add Category
 						</AssetButton>
@@ -69,7 +71,13 @@ function AssetListItem(props: stockProps) {
 						<CategoriesButtonsDiv>
 							{categories.map((c) => {
 								return (
-									<AssetButton onClick={() => setShowCategories(false)} key={c}>
+									<AssetButton
+										onClick={() => {
+											dispatch(addCategoryToAsset({name: props.name, category: c}));
+											setShowCategories(false);
+										}}
+										key={c}
+									>
 										{c}
 									</AssetButton>
 								);
@@ -78,7 +86,7 @@ function AssetListItem(props: stockProps) {
 					)}
 					<CategoryListDiv>
 						{props.categories.map((c) => {
-							return <CategoryDiv key={c}>{c}</CategoryDiv>;
+							return <CategoryDiv key={c} onClick={() => dispatch(removeCategoryFromAsset({name: props.name, category: c}))}>{c}</CategoryDiv>;
 						})}
 					</CategoryListDiv>
 				</>
