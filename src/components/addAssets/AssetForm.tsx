@@ -10,8 +10,8 @@ import {
 import { DIALOG_SHOW_TIME_MS } from "../../constants/assetFormConstants";
 import { SideBarHeader } from "../Sidebar";
 import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
-import { addAsset } from "../../reducers/assetSlice";
-import { isAssetValid } from "./isAssetValid";
+import { addAsset, addCategory } from "../../reducers/assetSlice";
+import { isNameUnique } from "./isAssetValid";
 
 export function AssetForm() {
 	const [currentForm, setCurrentForm] = useState("stock");
@@ -59,7 +59,7 @@ export function StockForm() {
 		// TODO actually add the stock to the redux state
 		// TODO maybe send a request to https://ca.finance.yahoo.com/quote/TICKER to check if stock exists? But this may not be necessary.
 
-		if (isAssetValid(assetSymbol.value, existingAssetNames)) {
+		if (isNameUnique(assetSymbol.value, existingAssetNames)) {
 			dispatch(
 				addAsset({
 					name: assetSymbol.value,
@@ -128,7 +128,7 @@ export function CashAssetForm() {
       document.getElementById("asset-rate-cash") as HTMLInputElement);
 		// TODO actually add the stock to the redux state
 		// TODO check that the symbol doesn't exist already in the redux state. We need to refactor the success/failure messages
-		if (isAssetValid(assetSymbol.value, existingAssetNames) && assetRate.value) {
+		if (isNameUnique(assetSymbol.value, existingAssetNames) && assetRate.value) {
 			setFailDialog(<></>);
 
 			if (isNaN(parseFloat(assetRate.value)) || parseFloat(assetRate.value) > 100 || parseFloat(assetRate.value) < 0) {
@@ -205,26 +205,30 @@ export function CashAssetForm() {
 export function CategoryForm() {
 	const [successDialog, setSuccessDialog] = useState(<></>);
 	const [failDialog, setFailDialog] = useState(<></>);
+	const existingCategories = useAppSelector((state) => state.assetList.categories);
+	const dispatch = useAppDispatch();
 
 	const getCategoryData = () => {
 		const categorySymbol = (
-      document.getElementById("asset-symbol-category") as HTMLInputElement
-		).value;
-		if (categorySymbol) {
+      document.getElementById("asset-symbol-category") as HTMLInputElement);
+		if (isNameUnique(categorySymbol.value, existingCategories)) {
+			dispatch(addCategory(categorySymbol.value));
+
 			setFailDialog(<></>);
 			setSuccessDialog(
 				<AssetFormSuccessDialog>
-					<strong>{categorySymbol}</strong> category added
+					<strong>{categorySymbol.value}</strong> category added
 				</AssetFormSuccessDialog>
 			);
-
+			
+			categorySymbol.value = "";
 			setTimeout(() => {
 				setSuccessDialog(<></>);
 			}, DIALOG_SHOW_TIME_MS);
 		} else {
 			setSuccessDialog(<></>);
 			setFailDialog(
-				<AssetFormFailDialog>Please fill out the form</AssetFormFailDialog>
+				<AssetFormFailDialog>Please fill out the form with a unique category name</AssetFormFailDialog>
 			);
 
 			setTimeout(() => {

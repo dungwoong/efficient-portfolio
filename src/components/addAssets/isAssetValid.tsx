@@ -1,9 +1,9 @@
-export function isAssetValid(assetName: string, existingAssetNames: string[]) {
-	if (!assetName) {
+export function isNameUnique(name: string, existingNames: string[]) {
+	if (!name) {
 		return false;
 	}
 
-	return !existingAssetNames.some((x) => {
-		return x === assetName;
+	return !existingNames.some((x) => {
+		return x === name;
 	});
 }

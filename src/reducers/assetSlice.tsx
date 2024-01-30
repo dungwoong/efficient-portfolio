@@ -35,9 +35,12 @@ export const assetSlice = createSlice({
 				}
 			}
 		},
+		addCategory: (state, action: PayloadAction<string>) => {
+			state.categories.push(action.payload);
+		},
 	},
 });
 
-export const { addAsset, deleteAsset } = assetSlice.actions;
+export const { addAsset, deleteAsset, addCategory } = assetSlice.actions;
 
 export default assetSlice.reducer;
