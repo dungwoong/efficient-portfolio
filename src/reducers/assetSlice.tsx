@@ -27,10 +27,17 @@ export const assetSlice = createSlice({
 	reducers: {
 		addAsset: (state, action: PayloadAction<assetInfo>) => {
 			state.assets.push(action.payload);
-		}
+		},
+		deleteAsset: (state, action: PayloadAction<string>) => {
+			for (let i=0; i < state.assets.length; i++) {
+				if (state.assets[i].name === action.payload) {
+					state.assets.splice(i, 1);
+				}
+			}
+		},
 	},
 });
 
-export const { addAsset } = assetSlice.actions;
+export const { addAsset, deleteAsset } = assetSlice.actions;
 
 export default assetSlice.reducer;

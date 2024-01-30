@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAppSelector } from "../../reducers/hooks";
+import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import {
 	AssetListDiv,
 	AssetListItemDiv,
@@ -9,6 +9,7 @@ import {
 	CategoryListDiv,
 	CategoryDiv,
 } from "./AssetListStyles";
+import { deleteAsset } from "../../reducers/assetSlice";
 
 type stockProps = {
 	name: string;
@@ -40,6 +41,8 @@ function AssetListItem(props: stockProps) {
 	const [showDetails, setShowDetails] = useState(false);
 
 	const categories = useAppSelector((state) => state.assetList.categories);
+	const dispatch = useAppDispatch();
+
 	return (
 		<AssetListItemDiv>
 			<div
@@ -49,14 +52,15 @@ function AssetListItem(props: stockProps) {
 				}}
 			>
 				<b>{props.name}</b>
-				{!showDetails && <> (click to open)</>}
+				{props.interestRate && <> ({props.interestRate}%)</>}
+				{!showDetails && <> ...</>}
 			</div>
 			{showDetails && (
 				<>
 					<hr></hr>
 					{props.interestRate && <>Rate: {props.interestRate}%(Annual)</>}
 					<AssetButtonsDiv>
-						<AssetButton>DELETE</AssetButton>
+						<AssetButton onClick={() => dispatch(deleteAsset(props.name))}>DELETE</AssetButton>
 						<AssetButton onClick={() => setShowCategories(!showCategories)}>
               Add Category
 						</AssetButton>
