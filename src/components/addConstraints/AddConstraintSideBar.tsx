@@ -10,6 +10,7 @@ import {
 	EXP_LOSS,
 	VAR_LOSS,
 } from "../../constants/configConstants";
+import { ConstraintList } from "../sidebarLists/ConstraintList";
 
 export function AddConstraintSideBar() {
 	const [currentForm, setCurrentForm] = useState(EXP_L2_LOSS);
@@ -28,11 +29,13 @@ export function AddConstraintSideBar() {
 				</AddConstraintSelect>
 				<AddConstraintForm formType={currentForm}></AddConstraintForm>
 			</AddConstraintFormDiv>
+			<ConstraintList></ConstraintList>
 		</SideBarDiv>
 	);
 }
 
 function AddConstraintForm(props: { formType: string }) {
+
 	if (props.formType === EXP_L2_LOSS) {
 		return (
 			<>

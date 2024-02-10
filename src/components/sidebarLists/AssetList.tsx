@@ -8,7 +8,7 @@ import {
 	CategoriesButtonsDiv,
 	CategoryListDiv,
 	CategoryDiv,
-} from "./AssetListStyles";
+} from "./listStyles";
 import { addCategoryToAsset, deleteAsset, removeCategoryFromAsset } from "../../reducers/assetSlice";
 
 type stockProps = {

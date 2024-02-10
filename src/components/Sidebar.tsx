@@ -3,7 +3,7 @@ import "../App.css";
 import styled from "styled-components";
 import { SIDEBAR_DARK_GRAY, SIDEBAR_TEXT_COLOR } from "../constants/colors";
 import { AssetForm } from "./addAssets/AssetForm";
-import { AssetList } from "./assetList/AssetList";
+import { AssetList } from "./sidebarLists/AssetList";
 
 export const SideBarDiv = styled.div`
   background-color: ${SIDEBAR_DARK_GRAY};

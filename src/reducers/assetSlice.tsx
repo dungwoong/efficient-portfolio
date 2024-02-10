@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { EXP_L2_LOSS } from "../constants/configConstants";
 
 export type assetInfo = {
 	name: string;
@@ -7,9 +8,16 @@ export type assetInfo = {
 	categories: string[];
 }
 
+export type constraintType = {
+    name: string;
+    gain: number;
+    additionalInfo?: string; //add more types if needed
+}
+
 export type userAssetInfo = {
 	assets: assetInfo[];
 	categories: string[];
+	constraints: constraintType[];
 }
 
 const initialState: userAssetInfo = {
@@ -19,6 +27,10 @@ const initialState: userAssetInfo = {
 		categories: ["test1", "test2", "category 3", "category 4"],
 	},],
 	categories: ["test1", "test2", "category 3", "category 4"],
+	constraints: [{
+		name: EXP_L2_LOSS,
+		gain: 0.5,
+	}],
 };
 
 type assetCategoryRequestInfo = {
