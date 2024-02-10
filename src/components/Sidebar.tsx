@@ -5,7 +5,7 @@ import { SIDEBAR_DARK_GRAY, SIDEBAR_TEXT_COLOR } from "../constants/colors";
 import { AssetForm } from "./addAssets/AssetForm";
 import { AssetList } from "./assetList/AssetList";
 
-const SideBarDiv = styled.div`
+export const SideBarDiv = styled.div`
   background-color: ${SIDEBAR_DARK_GRAY};
   overflow-y: scroll;
 `;
@@ -28,6 +28,4 @@ export function AddAssetSideBar() {
 	);
 }
 
-export function AddConstraintSideBar() {
-	return <SideBarDiv className="sidebar-constraint"></SideBarDiv>;
-}
+

@@ -1,6 +1,7 @@
 import React from "react";
 import "../App.css";
-import { AddAssetSideBar, AddConstraintSideBar } from "../components/Sidebar";
+import { AddAssetSideBar } from "../components/Sidebar";
+import { AddConstraintSideBar } from "../components/addConstraints/AddConstraintSideBar";
 
 function App() {
 	return (
