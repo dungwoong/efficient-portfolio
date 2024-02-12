@@ -34,6 +34,8 @@ export const AssetButton = styled.div`
   border: 1px solid ${SIDEBAR_TEXT_COLOR};
   color: ${SIDEBAR_TEXT_COLOR};
   font-family: inherit;
+  font-size: inherit;
+  text-align: center;
   padding: 5px 5px;
   margin: 2px 5px;
   border-radius: 5px;

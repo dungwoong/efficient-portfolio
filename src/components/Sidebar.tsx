@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { SIDEBAR_DARK_GRAY, SIDEBAR_TEXT_COLOR } from "../constants/colors";
 import { AssetForm } from "./addAssets/AssetForm";
 import { AssetList } from "./sidebarLists/AssetList";
+import { AssetButton } from "./sidebarLists/listStyles";
 
 export const SideBarDiv = styled.div`
   background-color: ${SIDEBAR_DARK_GRAY};
@@ -22,6 +23,8 @@ export const SideBarHeader = styled.div`
 export function AddAssetSideBar() {
 	return (
 		<SideBarDiv className="sidebar-asset">
+			<br></br>
+			<AssetButton>RUN GD</AssetButton>
 			<AssetForm></AssetForm>
 			<AssetList></AssetList>
 		</SideBarDiv>

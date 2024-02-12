@@ -73,10 +73,18 @@ export const assetSlice = createSlice({
 					}
 				}
 			}
+		},
+		addConstraint(state, action: PayloadAction<constraintType>) {
+			state.constraints.push(action.payload);
+		},
+		removeConstraint(state, action: PayloadAction<number>) {
+			if (action.payload < state.constraints.length) {
+				state.constraints.splice(action.payload, 1);
+			}
 		}
 	},
 });
 
-export const { addAsset, deleteAsset, addCategory, removeCategoryFromAsset, addCategoryToAsset } = assetSlice.actions;
+export const { addAsset, deleteAsset, addCategory, removeCategoryFromAsset, addCategoryToAsset, addConstraint, removeConstraint } = assetSlice.actions;
 
 export default assetSlice.reducer;

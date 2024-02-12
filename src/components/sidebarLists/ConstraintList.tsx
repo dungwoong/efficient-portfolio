@@ -3,18 +3,14 @@ import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import {
 	AssetListDiv,
 	AssetListItemDiv,
-	AssetButtonsDiv,
 	AssetButton,
-	CategoriesButtonsDiv,
-	CategoryListDiv,
-	CategoryDiv,
 } from "./listStyles";
 import {
-	addCategoryToAsset,
 	constraintType,
-	deleteAsset,
-	removeCategoryFromAsset,
+	removeConstraint,
 } from "../../reducers/assetSlice";
+
+type constraintSidebarType = constraintType & { index: number };
 
 export function ConstraintList() {
 	const constraints = useAppSelector((state) => state.assetList.constraints);
@@ -27,6 +23,7 @@ export function ConstraintList() {
 						name={constraint.name}
 						gain={constraint.gain}
 						additionalInfo={constraint.additionalInfo}
+						index={idx}
 					></ConstraintListItem>
 				);
 			})}
@@ -34,21 +31,25 @@ export function ConstraintList() {
 	);
 }
 
-function ConstraintListItem(props: constraintType) {
+function ConstraintListItem(props: constraintSidebarType) {
 	const [showDetails, setShowDetails] = useState(false);
+
+	const dispatch = useAppDispatch();
 	return (
 		<AssetListItemDiv>
-			<div
-				onClick={() => setShowDetails(!showDetails)}
-			>
+			<div onClick={() => setShowDetails(!showDetails)}>
 				<b>{props.name}</b> (x{props.gain})
 			</div>
 
-			{showDetails && 
-			<>
-				<hr></hr>
-				<AssetButton>DELETE</AssetButton>
-			</>}
+			{showDetails && (
+				<>
+					<hr></hr>
+					{props.additionalInfo && <p>{props.additionalInfo}</p>}
+					<AssetButton onClick={() => dispatch(removeConstraint(props.index))}>
+            DELETE
+					</AssetButton>
+				</>
+			)}
 		</AssetListItemDiv>
 	);
 }
