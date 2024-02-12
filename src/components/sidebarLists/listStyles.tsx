@@ -29,7 +29,7 @@ export const CategoriesButtonsDiv = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const AssetButton = styled.div`
+export const SidebarDarkButton = styled.div`
   background-color: ${SIDEBAR_DARK_GRAY};
   border: 1px solid ${SIDEBAR_TEXT_COLOR};
   color: ${SIDEBAR_TEXT_COLOR};

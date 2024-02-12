@@ -4,7 +4,7 @@ import {
 	AssetListDiv,
 	AssetListItemDiv,
 	AssetButtonsDiv,
-	AssetButton,
+	SidebarDarkButton,
 	CategoriesButtonsDiv,
 	CategoryListDiv,
 	CategoryDiv,
@@ -60,18 +60,18 @@ function AssetListItem(props: stockProps) {
 					<hr></hr>
 					{props.interestRate && <>Rate: {props.interestRate}%(Annual)</>}
 					<AssetButtonsDiv>
-						<AssetButton onClick={() => dispatch(deleteAsset(props.name))}>
+						<SidebarDarkButton onClick={() => dispatch(deleteAsset(props.name))}>
               DELETE
-						</AssetButton>
-						<AssetButton onClick={() => setShowCategories(!showCategories)}>
+						</SidebarDarkButton>
+						<SidebarDarkButton onClick={() => setShowCategories(!showCategories)}>
               Add Category
-						</AssetButton>
+						</SidebarDarkButton>
 					</AssetButtonsDiv>
 					{showCategories && (
 						<CategoriesButtonsDiv>
 							{categories.map((c) => {
 								return (
-									<AssetButton
+									<SidebarDarkButton
 										onClick={() => {
 											dispatch(addCategoryToAsset({name: props.name, category: c}));
 											setShowCategories(false);
@@ -79,7 +79,7 @@ function AssetListItem(props: stockProps) {
 										key={c}
 									>
 										{c}
-									</AssetButton>
+									</SidebarDarkButton>
 								);
 							})}
 						</CategoriesButtonsDiv>

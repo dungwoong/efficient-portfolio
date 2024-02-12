@@ -8,7 +8,7 @@ import {
 	AssetPickerRadioButton,
 } from "./AssetFormStyles";
 import { DIALOG_SHOW_TIME_MS } from "../../constants/assetFormConstants";
-import { SideBarHeader } from "../Sidebar";
+import { SideBarHeader } from "../sidebarStyles";
 import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import { addAsset, addCategory } from "../../reducers/assetSlice";
 import { isNameUnique } from "./isAssetValid";
@@ -56,9 +56,7 @@ export function StockForm() {
 		const assetSymbol = document.getElementById(
 			"asset-symbol"
 		) as HTMLInputElement;
-		// TODO actually add the stock to the redux state
-		// TODO maybe send a request to https://ca.finance.yahoo.com/quote/TICKER to check if stock exists? But this may not be necessary.
-
+		// TODO maybe send a request to https://ca.finance.yahoo.com/quote/TICKER to check if stock exists? May not be necessary in V1
 		if (isNameUnique(assetSymbol.value, existingAssetNames)) {
 			dispatch(
 				addAsset({
@@ -67,7 +65,8 @@ export function StockForm() {
 					categories: [],
 				})
 			);
-
+			assetSymbol.value = "";
+			
 			setFailDialog(<></>);
 			setSuccessDialog(
 				<AssetFormSuccessDialog>
@@ -75,7 +74,6 @@ export function StockForm() {
           on YFinance
 				</AssetFormSuccessDialog>
 			);
-			assetSymbol.value = "";
 
 			setTimeout(() => {
 				setSuccessDialog(<></>);
@@ -126,8 +124,6 @@ export function CashAssetForm() {
 
 		const assetRate = (
       document.getElementById("asset-rate-cash") as HTMLInputElement);
-		// TODO actually add the stock to the redux state
-		// TODO check that the symbol doesn't exist already in the redux state. We need to refactor the success/failure messages
 		if (isNameUnique(assetSymbol.value, existingAssetNames) && assetRate.value) {
 			setFailDialog(<></>);
 

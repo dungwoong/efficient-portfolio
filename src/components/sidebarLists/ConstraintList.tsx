@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import {
 	AssetListDiv,
 	AssetListItemDiv,
-	AssetButton,
+	SidebarDarkButton,
 } from "./listStyles";
 import {
 	constraintType,
@@ -45,9 +45,9 @@ function ConstraintListItem(props: constraintSidebarType) {
 				<>
 					<hr></hr>
 					{props.additionalInfo && <p>{props.additionalInfo}</p>}
-					<AssetButton onClick={() => dispatch(removeConstraint(props.index))}>
+					<SidebarDarkButton onClick={() => dispatch(removeConstraint(props.index))}>
             DELETE
-					</AssetButton>
+					</SidebarDarkButton>
 				</>
 			)}
 		</AssetListItemDiv>

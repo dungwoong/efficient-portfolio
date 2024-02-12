@@ -1,45 +1,16 @@
-import React, { useState } from "react";
-import { SideBarDiv, SideBarHeader } from "../Sidebar";
-import {
-	AddConstraintInputBox,
-	AddConstraintSelect,
-	AddConstraintFormDiv,
-} from "./AddConstraintSideBarStyles";
+import React from "react";
+import { SideBarHeader } from "../sidebarStyles";
+import { AddConstraintInputBox } from "../sidebars/AddConstraintSideBarStyles";
 import {
 	EXP_L2_LOSS,
 	EXP_LOSS,
-	VAR_LOSS,
+	VAR_LOSS
 } from "../../constants/configConstants";
-import { ConstraintList } from "../sidebarLists/ConstraintList";
-import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
+import { useAppDispatch } from "../../reducers/hooks";
 import { addConstraint } from "../../reducers/assetSlice";
-import { AssetButton } from "../sidebarLists/listStyles";
+import { SidebarDarkButton } from "../sidebarLists/listStyles";
 
-export function AddConstraintSideBar() {
-	const [currentForm, setCurrentForm] = useState(EXP_L2_LOSS);
-
-	return (
-		<SideBarDiv className="sidebar-constraint">
-			<AddConstraintFormDiv>
-				<AddConstraintSelect
-					onChange={(event) => {
-						setCurrentForm(event.target.value);
-					}}
-				>
-					<option value={EXP_L2_LOSS}>target expected gain</option>
-					<option value={EXP_LOSS}>expected value</option>
-					<option value={VAR_LOSS}>variance</option>
-				</AddConstraintSelect>
-				<AddConstraintForm formType={currentForm}></AddConstraintForm>
-			</AddConstraintFormDiv>
-			<ConstraintList></ConstraintList>
-		</SideBarDiv>
-	);
-}
-
-function AddConstraintForm(props: { formType: string }) {
-	const constraints = useAppSelector((state) => state.assetList.constraints);
-
+export function AddConstraintForm(props: { formType: string; }) {
 	if (props.formType === EXP_L2_LOSS) {
 		return <AddExpL2Form></AddExpL2Form>;
 	} else if (props.formType === EXP_LOSS) {
@@ -50,7 +21,6 @@ function AddConstraintForm(props: { formType: string }) {
 		return <></>;
 	}
 }
-
 function AddExpL2Form() {
 	const dispatch = useAppDispatch();
 
@@ -85,11 +55,10 @@ function AddExpL2Form() {
 				placeholder="GD Multiplier"
 				id="gd-mult"
 			></AddConstraintInputBox>
-			<AssetButton onClick={addExpL2}>SUBMIT</AssetButton>
+			<SidebarDarkButton onClick={addExpL2}>SUBMIT</SidebarDarkButton>
 		</>
 	);
 }
-
 function AddExpLossForm() {
 	const dispatch = useAppDispatch();
 
@@ -114,14 +83,13 @@ function AddExpLossForm() {
 				placeholder="GD Multiplier"
 				id="gd-mult"
 			></AddConstraintInputBox>
-			<AssetButton onClick={addExpLoss}>SUBMIT</AssetButton>
+			<SidebarDarkButton onClick={addExpLoss}>SUBMIT</SidebarDarkButton>
 		</>
 	);
 }
-
 function AddVarLossForm() {
 	const dispatch = useAppDispatch();
-	
+
 	function addVarLoss() {
 		const gain = (document.getElementById("gd-mult") as HTMLInputElement);
 
@@ -143,7 +111,7 @@ function AddVarLossForm() {
 				placeholder="GD Multiplier"
 				id="gd-mult"
 			></AddConstraintInputBox>
-			<AssetButton onClick={addVarLoss}>SUBMIT</AssetButton>
+			<SidebarDarkButton onClick={addVarLoss}>SUBMIT</SidebarDarkButton>
 		</>
 	);
 }
